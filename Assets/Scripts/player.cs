@@ -66,11 +66,14 @@ public class player : MonoBehaviour
 
     private void GhostPerformed(InputAction.CallbackContext obj)
     {
-        gameObject.layer = 11;
-        /*if(gameObject.layer == 8)
-        {
+        StartCoroutine(GhostTimer());
+    }
 
-        }*/
+    private IEnumerator GhostTimer()
+    {
+        gameObject.layer = 11;
+        yield return new WaitForSeconds(2);
+        gameObject.layer = 8;
     }
     void Start()
     {
