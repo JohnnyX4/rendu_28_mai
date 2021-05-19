@@ -75,7 +75,7 @@ public class player : MonoBehaviour
         yield return new WaitForSeconds(2);
         gameObject.layer = 8;
     }
-    void Start()
+    void Start() 
     {
         rb2D = GetComponent<Rigidbody2D>();
         spriterenderer = GetComponent<SpriteRenderer>();
