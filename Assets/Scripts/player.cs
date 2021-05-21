@@ -72,8 +72,11 @@ public class player : MonoBehaviour
     private IEnumerator GhostTimer()
     {
         gameObject.layer = 11;
+        spriterenderer = GetComponent<SpriteRenderer>();
+        spriterenderer.color = Color.gray;
         yield return new WaitForSeconds(2);
         gameObject.layer = 8;
+        spriterenderer.color = Color.white;
     }
     void Start() 
     {
