@@ -19,6 +19,8 @@ public class player : MonoBehaviour
     private Rigidbody2D rb2D;
     private Controls controls;
     private float direction;
+    private bool moving;
+
 
     private void OnEnable()
     {
@@ -33,6 +35,7 @@ public class player : MonoBehaviour
     private void MoveCanceled(InputAction.CallbackContext obj)
     {
         direction = 0;
+        moving = false;
     }
 
 
@@ -49,6 +52,7 @@ public class player : MonoBehaviour
             spriterenderer.flipX = false;
             //ChangeAnimationState(RUN_LEFT);
         }
+        moving = true;
     }
 
     private void GravPerformed(InputAction.CallbackContext obj)
@@ -73,7 +77,7 @@ public class player : MonoBehaviour
     {
         gameObject.layer = 11;
         spriterenderer = GetComponent<SpriteRenderer>();
-        spriterenderer.color = Color.gray;
+        spriterenderer.color = Color.green;
         yield return new WaitForSeconds(2);
         gameObject.layer = 8;
         spriterenderer.color = Color.white;
@@ -84,6 +88,23 @@ public class player : MonoBehaviour
         spriterenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
+
+    private void Update()
+    {
+        if(moving == true)
+        {
+            animator.SetBool("moving", true);
+        }
+        
+        if (moving == false)
+        {
+            animator.SetBool("moving", false);
+        }
+    }
+
+
+
+
 
     void FixedUpdate()
     {
