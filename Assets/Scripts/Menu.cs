@@ -2,10 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class Menu : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private GameObject PauseMenuUI;
+    private Controls controls;
+    private static bool gamePaused = false;
+
+    private void OnEnable()
+    {
+        controls = new Controls();
+        controls.Enable();
+        controls.Main.Pause.performed += PausePerformed;
+    }
+
+    private void PausePerformed(InputAction.CallbackContext obj)
+    {
+        if (gamePaused)
+        {
+            Resume();
+        }
+        else
+        {
+            Paused();
+        }
+    }
+
+    private void Paused()
+    {
+        PauseMenuUI.SetActive(true);
+        Time.timeScale = 0;
+        gamePaused = true;
+    }
+
+    private void Resume()
+    {
+        PauseMenuUI.SetActive(false);
+        Time.timeScale = 1;
+        gamePaused = false;
+    }
+
     public void play()
     {
         SceneManager.LoadScene("Platformer");
