@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class HitboxWin : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
+    [SerializeField] private GameObject WinUI;
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        
+        if (collision.transform.CompareTag("Player"))
+        {
+            WinUI.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 }
