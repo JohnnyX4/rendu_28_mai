@@ -8,11 +8,8 @@ using UnityEngine.InputSystem;
 
 public class player : MonoBehaviour
 {
-    //On créé des variables sérialisées afin de pouvoir les changer à notre grés de manière plus simple
-    [SerializeField] private float speed;
-    [SerializeField] private float maxspeed;
-    [SerializeField] private float rollForce;
-    [SerializeField] private Transform RaycastStartTransform;
+    [SerializeField] private float speed; 
+    [SerializeField] private float maxspeed; 
 
     private SpriteRenderer spriterenderer;
     private Animator animator;
@@ -45,12 +42,10 @@ public class player : MonoBehaviour
         if (direction > 0)
         {
             spriterenderer.flipX = true;
-            //ChangeAnimationState(RUN_RIGHT);
         }
-        else //(direction<0)
+        else 
         {
             spriterenderer.flipX = false;
-            //ChangeAnimationState(RUN_LEFT);
         }
         moving = true;
     }
@@ -68,20 +63,21 @@ public class player : MonoBehaviour
         }
     }
 
-    private void GhostPerformed(InputAction.CallbackContext obj)
+    private void GhostPerformed(InputAction.CallbackContext obj) //Quand on appuie sur Z (activation du ghost mode)
     {
         StartCoroutine(GhostTimer());
     }
 
-    private IEnumerator GhostTimer()
+    private IEnumerator GhostTimer() 
     {
-        gameObject.layer = 11;
-        spriterenderer = GetComponent<SpriteRenderer>();
-        spriterenderer.color = Color.green;
-        yield return new WaitForSeconds(2);
-        gameObject.layer = 8;
-        spriterenderer.color = Color.white;
+        gameObject.layer = 11;                            //On passe le player sur le layer 11 (précédemment sur le layer 8)
+        spriterenderer = GetComponent<SpriteRenderer>();  //On stocke le psrite renderer du player dans la variable spriterenderer
+        spriterenderer.color = Color.cyan;                //On change la couleur du sprite du player en cyan
+        yield return new WaitForSeconds(2);               //On attend 2 secondes (durée du ghost mode)
+        gameObject.layer = 8;                             //On repasse le player sur le layer 8
+        spriterenderer.color = Color.white;               //On réinitialise la couleur du sprite (couleur de base)
     }
+
     void Start() 
     {
         rb2D = GetComponent<Rigidbody2D>();
@@ -102,10 +98,6 @@ public class player : MonoBehaviour
         }
     }
 
-
-
-
-
     void FixedUpdate()
     {
         var horizontalSpeed = Mathf.Abs(rb2D.velocity.x);
@@ -114,5 +106,4 @@ public class player : MonoBehaviour
             rb2D.AddForce(new Vector2(speed * direction, 0));
         }
     }
-
 }
